@@ -26,5 +26,5 @@ class Solution(object):
             tmp.next = l1
         if l2!=None:
             tmp.next = l2
-        
-        return result.next    
+
+        return result.next
