@@ -47,6 +47,6 @@ class Solution(object):
             result = [tmp]+result
 
             current = next[:]
-            del next[:]
+            next = []
         return result
 
