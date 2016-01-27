@@ -33,3 +33,17 @@ class Solution(object):
             i-=1
         return length
 
+# Method2  split
+class Solution(object):
+    def lengthOfLastWord(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+
+        words = s.split()
+        if len(words)==0:
+            return 0
+        else:
+            return len(words[-1])
+
