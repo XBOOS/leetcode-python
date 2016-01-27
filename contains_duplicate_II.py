@@ -34,3 +34,19 @@ class Solution(object):
                 bag.add(nums[i])
             i+=1
         return False
+
+# Method 2
+class Solution(object):
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        bag = dict()
+        for i in xrange(len(nums)):
+            if nums[i] in bag and i-bag[nums[i]]<k+1:
+                return True
+            else:
+                bag[nums[i]] = i
+        return False
