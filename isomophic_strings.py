@@ -40,3 +40,24 @@ class Solution(object):
                 t_dict[tt].append(j)
 
         return sorted(s_dict.values())==sorted(t_dict.values())
+
+
+    # Method 2
+class Solution(object):
+    def isIsomorphic(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        dic = {}
+        for i in range(len(s)):
+            if s[i] in dic:
+                if dic[s[i]] != t[i]:
+                    return False
+            else:
+                if t[i] in dic.values():
+                    return False
+                else:
+                    dic[s[i]] = t[i]
+        return True
