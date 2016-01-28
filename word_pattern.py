@@ -37,3 +37,29 @@ class Solution(object):
                     return False
         return True
 
+
+# method 2 to make sure one-to-one
+class Solution(object):
+    def wordPattern(self, pattern, str):
+        """
+        :type pattern: str
+        :type str: str
+        :rtype: bool
+        """
+        words = str.split()
+        if len(words) != len(pattern):
+            return False
+
+        w_dic = dict()
+        c_dic = dict()
+        for c,w in zip(pattern,words):
+            if c not in c_dic:
+                c_dic[c] = w
+            elif c_dic[c]!=w:
+                return False
+            if w not in w_dic:
+                w_dic[w] = c
+            elif w_dic[w] != c:
+                return False
+        return True
+
