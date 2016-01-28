@@ -91,3 +91,42 @@ class Solution(object):
         return True
 
 
+# Another way. Still not fast T_T
+class Solution(object):
+    def wordPattern(self, pattern, str):
+        """
+        :type pattern: str
+        :type str: str
+        :rtype: bool
+        """
+        words = str.split()
+        len1 = len(pattern)
+        len2 = len(words)
+
+        if len1 != len2:
+            return False
+        chars = dict()
+        for i in range(len1):
+            p = pattern[i]
+            if p not in chars:
+                chars[p] = [i]
+            else:
+                chars[p].append(i)
+        print chars
+        # next to check the corresponding words
+        bag = set()
+        for key in chars:
+            if words[chars[key][0]] in bag:
+                return False
+            else:
+                bag.add(words[chars[key][0]])
+            print bag
+            j =1
+            while j<len(chars[key]):
+                if not words[chars[key][j]] in bag:
+                    return False
+                j+=1
+        return True
+
+
+
