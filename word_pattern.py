@@ -63,3 +63,31 @@ class Solution(object):
                 return False
         return True
 
+# method3 maintain another set by myself instead of checking values of the dictionary every iteration
+class Solution(object):
+    def wordPattern(self, pattern, str):
+        """
+        :type pattern: str
+        :type str: str
+        :rtype: bool
+        """
+        words = str.split()
+        if len(words) != len(pattern):
+            return False
+
+        dic = dict()
+        bag = set() #to store the values instead of make a new set every iteration
+
+        for i in range(len(pattern)):
+            p = pattern[i]
+            word = words[i]
+            if not p in dic:
+                if word in bag:
+                   return False
+                dic[p] = word
+                bag.add(word)
+            elif dic[p]!= word:
+                return False
+        return True
+
+
