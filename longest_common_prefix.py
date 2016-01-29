@@ -23,3 +23,25 @@ class Solution(object):
                     return res
             res+=record
         return res
+
+    # a little modification to speed up
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+
+        if not strs or strs==[]:
+            return ""
+        minlen = min([len(str) for str in strs])
+        res = ""
+        dummy = strs[0]
+
+        for i in xrange(minlen):
+            record = dummy[i]
+            for j in range(1,len(strs)):
+                if strs[j][i]!=record:
+                    return res
+            res+=record
+        return res
