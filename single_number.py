@@ -23,3 +23,16 @@ class Solution(object):
                 return nums[i]
             i+=2
         return nums[len(nums)-1]
+
+
+    # clever way using XOR
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        res = 0
+        for num in nums:
+            res ^=num
+        return res
