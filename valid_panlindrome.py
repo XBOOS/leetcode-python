@@ -60,3 +60,30 @@ class Solution(object):
             i+=1
         return True
 
+""" Method 3 using two pointers. when intersect end the loop"""
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+
+        if not s:
+            return True
+        leng = len(s)
+        i = 0
+        j = leng-1
+        while True:
+            while i<leng and not s[i].isdigit() and not s[i].isalpha():
+                i+=1
+            while j>0 and not s[j].isdigit() and not s[j].isalpha():
+                j-=1
+            if i>=j:
+                return True
+            if s[i].lower()!=s[j].lower():
+                return False
+            i+=1
+            j-=1
+
+        return True
+
