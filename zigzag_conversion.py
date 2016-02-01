@@ -30,3 +30,27 @@ class Solution(object):
 
         return "".join(["".join(x) for x in res])
 
+# Change the 2D array to array of strings, change to 1D conversion
+# Faster solution
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        if numRows<2:
+            return s
+        res = ['']*numRows
+        row = 0
+        direction = 1
+        for ss in s:
+            res[row]+=ss
+            if row==0:
+                direction = 1
+            elif row==numRows-1:
+                direction = -1
+            row += direction
+
+        return "".join(res)
+
