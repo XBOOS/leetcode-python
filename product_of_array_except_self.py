@@ -12,6 +12,8 @@ Follow up:
 Could you solve it with constant space complexity? (Note: The output array does not count as extra space for the purpose of space complexity analysis.)
 
 """
+
+""" Method 1: three pass"""
 class Solution(object):
     def productExceptSelf(self, nums):
         """
@@ -28,4 +30,24 @@ class Solution(object):
 
         for i in range(1,leng):
             res[i] *=nums[i-1]
+        return res
+
+
+    """Method 2, two passes and a little bit faster"""
+
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        leng=len(nums)
+        res = [1 for _ in range(leng)]
+        for i in range(1,leng):
+            res[i] = res[i-1]*nums[i-1]
+
+        tmp = nums[leng-1]
+        for i in (range(leng-1)[::-1]):
+            res[i] *= tmp
+            tmp *=nums[i]
         return res
