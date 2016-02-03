@@ -80,4 +80,33 @@ class Solution(object):
         return res
 
 
+""" Method 3 no need to modify the tree iteself"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        res = list()
+        stack = list()
+        current = root
+        while current or stack!=[]:
+            if current:
+                stack.append(current)
+                current = current.left
+            else:
+                tmp = stack.pop()
+                res.append(tmp.val)
+                current = tmp.right
+
+        return res
+
+
 
