@@ -44,3 +44,15 @@ class Solution(object):
             res^=(i^nums[i])
         return res
 
+
+""" Method 3
+if num after x all is 1 bigger than what it is supposed to be.
+    then sum(nums)- (len(nums)-1)*len(nums)/2 is how many numbers is bigger"""
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        leng = len(nums)
+        return leng-(sum(nums)-leng*(leng-1)/2)
