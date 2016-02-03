@@ -71,4 +71,27 @@ class Solution(object):
                     product = max(product,len(words[i])*len(words[j]))
         return product
 
+""" records the length of the words, use more space to make it even faster"""
+class Solution(object):
+    def maxProduct(self, words):
+        """
+        :type words: List[str]
+        :rtype: int
+        """
+        leng = len(words)
+        if leng<2:
+            return 0
+        product = 0
+        lengs = [0 for _ in range(leng)]
+        value = [0 for _ in range(leng)]
+        for i in range(leng):
+            lengs[i] = len(words[i])
+            for ss in words[i]:
+                value[i] |= (1<<(ord(ss)-65))
+        for i in range(leng):
+            for j in range(i,leng):
+                if value[i]&value[j]==0:
+                    product = max(product,lengs[i]*lengs[j])
+        return product
+
 
