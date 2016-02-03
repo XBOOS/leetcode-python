@@ -9,14 +9,16 @@ A = "asdfasgrtherthasdfasgafdgasdfasdg"*100
 B = "iojoeirjgoijoprthkdfnbknskfbnksdlfbklsfdkbsdfb"*100
 
 
-bag = set()
+bag1= set()
+bag2 = set()
 start = time.time()
 for s in A:
-    bag.add(s)
+    bag1.add(s)
 cm =0
 for s in B:
-    if s in bag:
+    if s in bag1:
         cm =1
+    bag2.add(s)
 end = time.time()
 print "Using set used time ",end-start, "  the result is ",cm==1
 
