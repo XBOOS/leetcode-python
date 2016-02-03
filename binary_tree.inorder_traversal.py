@@ -79,6 +79,46 @@ class Solution(object):
 
         return res
 
+"""Comparing to method 3, this method kind of lost control of the processing,
+only record the stack, but not the in stack control point. so to make a mod here"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        if not root:
+            return []
+        stack = [root]
+        res = list()
+        pushControl = True
+        while stack:
+            tmp = stack[-1]
+            if pushControl:
+                while tmp.left:
+                    stack.append(tmp.left)
+                    tmp = tmp.left
+
+            tmp = stack.pop()
+            res.append(tmp.val)
+            if tmp.right:
+                stack.append(tmp.right)
+                pushControl = True
+            else:
+                pushControl = False
+        return res
+
+
+
+
+
 
 """ Method 3 no need to modify the tree iteself"""
 # Definition for a binary tree node.
@@ -87,6 +127,7 @@ class Solution(object):
 #         self.val = x
 #         self.left = None
 #         self.right = None
+""" To simulate the recursion process. The current means the focus of processing"""
 
 class Solution(object):
     def inorderTraversal(self, root):
