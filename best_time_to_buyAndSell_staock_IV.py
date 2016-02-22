@@ -41,3 +41,7 @@ class Solution(object):
                 maxProfit +=prices[i]-prices[i-1]
 
         return maxProfit
+
+
+
+""" Method 2 with sliding windows. use only linear O(k) spaces instead of O(nk), the time complexity is the same O(nk)"""
