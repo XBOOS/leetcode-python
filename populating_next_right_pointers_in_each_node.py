@@ -39,7 +39,7 @@ After calling your function, the tree should look like:
 #         self.left = None
 #         self.right = None
 #         self.next = None
-
+""" Recursive way"""
 class Solution(object):
     def connect(self, root):
         """
@@ -61,7 +61,7 @@ class Solution(object):
             self.connect_with_sibling(root.right,None)
 
 
-"""Method 2.
+"""Method 2.  Recursive way
 In method 1 I deal with the root's next in the current loop, here I can deal with it in the previous loop,
 so that, after checking root's next, can decide root.right.next"""
 # Definition for binary tree with next pointer.
