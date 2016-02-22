@@ -17,8 +17,6 @@ class Solution(object):
         leng = len(nums)
         if leng==0:
             return 0
-        if leng==1:
-            return nums[0]
         maxSum = nums[0]
         curSum = [0]*leng
         curSum[0]=nums[0]
