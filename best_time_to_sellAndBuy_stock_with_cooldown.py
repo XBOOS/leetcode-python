@@ -13,6 +13,39 @@ prices = [1, 2, 3, 0, 2]
 maxProfit = 3
 transactions = [buy, sell, cooldown, buy, sell]"""
 
+
+
+"""Only the right solution, with help of two auxiliary arrays buys and sells.
+buys means that the max profits with hold of today's stock
+sells means that the max profits till now without hold of today's stock"""
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        daysNum = len(prices)
+        if daysNum <2:
+            return 0
+        buys = [0]*(daysNum)
+        sells = [0]*(daysNum)
+
+        buys[0] = -prices[0]
+        buys[1] = max(-prices[0],-prices[1])
+
+        sells[1] = max(prices[1]-prices[0],0)
+
+        #status tranformation
+        for i in range(2,daysNum):
+            buys[i] = max(buys[i-1],sells[i-2]-prices[i])
+            sells[i] = max(buys[i-1]+prices[i],sells[i-1])
+
+        return sells[-1]
+
+
+"""
+solution's below are not correct, but it pass my tests which obviously passes not all the situations
+"""
 """ Method 1. Idea based on the best time to sell and buy stock II.
 when have to cool down, just compare the last addition,present addition, and two consecutive addtion plus the negation in between"""
 class Solution(object):
@@ -42,6 +75,17 @@ class Solution(object):
 
         return profit
 
+"""  Method 2, from another point of view, instead of based on daily price,
+based on the change of prices during the slot between different days.
+when the change is positive, then the price goes up. when the change is negative,
+then the price goes down.
+So in best_time_toBuyANdSell_II, just add all the positive numbers together to get the max.
+heere the each slot must have two between them"""
+class Solution1(object):
+    def maxProfit(self,prices):
+        """
+        :type prices: List[int]
+        :rtype: int"""
 
 # I am on my way back home to celebrate the Chinese lunar new year.
 # No access to online judge, so I just write the tests by myself.
