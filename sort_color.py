@@ -41,3 +41,26 @@ class Solution(object):
             else:
                 walk +=1
 
+
+
+""" Method 2 count sort"""
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        #count sort
+        red = white = blue = 0
+        for num in nums:
+            if num==0:
+                red +=1
+            elif num==1:
+                white +=1
+        for i in range(red):
+            nums[i]=0
+        for i in range(red,red+white):
+            nums[i]=1
+        for i in range(red+white,len(nums)):
+            nums[i]=2
+
