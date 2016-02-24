@@ -29,3 +29,32 @@ class Solution(object):
                     perms.append(newPerm)
                 perms[j].append(nums[i])
         return perms
+
+
+""" Method 2: using backtracking. Recursion + maintain [used] to prune the used num"""
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        leng = len(nums)
+        perm = []
+        perms = []
+        used = [False]*leng
+        self.genPerms(nums,used,perms,perm)
+        return perms
+
+    def genPerms(self,nums,used,perms,perm):
+        if len(perm)==len(nums):
+            perms.append(perm[:])
+            return
+        for i in range(len(nums)):
+            if used[i]:
+                continue
+            perm.append(nums[i])
+            used[i] = True
+            self.genPerms(nums,used,perms,perm)
+            perm.pop()
+            used[i] = False
+
