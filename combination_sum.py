@@ -56,3 +56,30 @@ class Solution(object):
             self.genComb(candidates,target-candidates[i],i,comb,combs)
             comb.pop()
 
+
+""" Method2. slightly modified the ending check rule to make code simple.
+But it also deepens the recrusion stack and make it much slower"""
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        candidates.sort()
+        comb = []
+        combs = []
+        self.genComb(candidates,target,0,comb,combs)
+        return combs
+    def genComb(self,candidates,target,startIndex,comb,combs):
+        if target<0:
+            return
+        elif target==0:
+            combs.append(comb[:])
+            return
+
+        for i in range(startIndex,len(candidates)):
+            comb.append(candidates[i])
+            self.genComb(candidates,target-candidates[i],i,comb,combs)
+            comb.pop()
+
