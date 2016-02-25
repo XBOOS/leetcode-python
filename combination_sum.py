@@ -25,6 +25,9 @@ that this candidate cannot be possibly completed to a valid solution
 The key point is
 1. the recursion : recursive call
 2. the base case== also the ending rules(where i found the valid solution or where i should backtrack)"""
+
+"""
+Another I should remember is that I should append the copy of comb( list is just shallow copy of pointer)"""
 class Solution(object):
     def combinationSum(self, candidates, target):
         """
