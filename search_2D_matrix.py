@@ -61,3 +61,28 @@ class Solution(object):
 
 
 
+""" Method 2  Iterative method"""
+class Solution(object):
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        m = len(matrix)
+        n = len(matrix[0])
+
+        start = 0
+        end = m*n-1
+        mid = x = y = 0
+        while start<end:
+            mid = (start+end)/2
+            x = mid/n
+            y = mid%n
+            if matrix[x][y]==target:
+                return True
+            elif matrix[x][y]>target:
+                end = mid-1
+            else:
+                start = mid+1
+        return matrix[start/n][start%n]==target
