@@ -61,7 +61,7 @@ class Solution(object):
 
 
 
-""" Method 2  Iterative method"""
+""" Method 2  Iterative method. Almost two times faster"""
 class Solution(object):
     def searchMatrix(self, matrix, target):
         """
