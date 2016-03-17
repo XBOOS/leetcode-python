@@ -17,7 +17,8 @@ You may assume that you have an infinite number of each kind of coin.
 
 """
 """
-Still not right.remain to be changed"""
+Method1 Iterative solution.
+THis should be right. but too slow because of python. Dangerously just crossing the time line"""
 class Solution(object):
     def coinChange(self, coins, amount):
         """
@@ -25,18 +26,20 @@ class Solution(object):
         :type amount: int
         :rtype: int
         """
-        coins.sort()
-        mins = [float('inf')]*(amount+1)
-        mins[0]=0
-        for i in range(1,amount+1):
-            for j in range(1,len(coins)):
-                if i>=coins[j]:
-                    mins[i] = min(mins[i],mins[i-coins[j]]+1)
+        d = [amount+1]*(amount+1)
+        d[0] = 0
+        for i in xrange(1,amount+1):
+            for coin in coins:
+                if i>=coin:
+                    d[i] = min(d[i],d[i-coin]+1)
+        if d[amount]==(amount+1):
+            return -1
+        return d[amount]
 
-        return mins[amount]
-
-
-
+"""
+I think this recursive method should be correct, but maybe amount could be large and useless element
+in the auxiliary array could be too many.
+So maybe I should use a hashmap to just record the divisible element."""
 class Solution(object):
     def coinChange(self, coins, amount):
         """
@@ -46,25 +49,31 @@ class Solution(object):
         """
 
         d = [-1]*(amount+1)
+        d[0] = 0
+        for coin in coins:
+            if coin<amount:d[coin]=1
         #visited = [False]*(amount+1)
         coins.sort()
+        print len(d)
         res = self.dp(coins,amount,d)
-        if res==(1<<30):
+        if res>=1<<30:
             return -1
         else:
             return res
 
     def dp(self,coins,remainAmount,d):
 
-        if remainAmount<=0:
-            return 0
+
         #if visited[remainAmount]:
         if d[remainAmount]>=0:
             return d[remainAmount]
 
         #visited[remainAmount]=True
         d[remainAmount]=1<<30
+        #print d[remainAmount]
         for coin in coins:
             if coin<=remainAmount:
-                d[remainAmount] = min(d[remainAmount],self.dp(coins,remainAmount-coin,d)+1
+                d[remainAmount] = min(d[remainAmount],self.dp(coins,remainAmount-coin,d)+1)
+            else:
+                break
         return d[remainAmount]
