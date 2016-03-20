@@ -40,3 +40,17 @@ class Solution(object):
 
         return res[:num+1]
 
+""" Method 2 using dynamic programming, not use the range,but even/odd as the divider """
+class Solution(object):
+    def countBits(self, num):
+        """
+        :type num: int
+        :rtype: List[int]
+        """
+        res = [0]*(num+1)
+        for i in range(1,num+1):
+            if i&0x01:
+                res[i] = res[i-1]+1
+            else:
+                res[i] = res[i/2]
+        return res
