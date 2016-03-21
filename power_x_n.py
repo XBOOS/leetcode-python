@@ -29,3 +29,23 @@ class Solution(object):
             n-=1
             power*=x
         return power
+
+"""Method 2  O(logn) time complexity"""
+class Solution(object):
+    def myPow(self, x, n):
+        """
+        :type x: float
+        :type n: int
+        :rtype: float
+        """
+        base = x
+        if n<0:
+            base = 1/x
+            n =-n
+        res = 1
+        while n!=0:
+            if n%2==1:
+                res*=base
+            base*=base
+            n/=2
+        return res
