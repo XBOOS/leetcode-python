@@ -24,3 +24,19 @@ class Solution(object):
             for j in range(1,n):
                 paths[i][j] = max(paths[i-1][j]+paths[i][j-1],paths[i][j])
         return paths[-1][-1]
+
+""" Method 2 just using O(n) space. Sliding window. update the array while moving down one row."""
+class Solution(object):
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        dp = [1]*n
+
+        for i in range(1,m):
+            for j in range(1,n):
+                dp[j] +=dp[j-1]
+
+        return dp[-1]
