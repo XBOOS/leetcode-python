@@ -63,3 +63,22 @@ class Solution(object):
                 res.append([nums[i]])
         res.append([])
         return res
+
+
+""" Method 3 using bit manipulation"""
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        n = len(nums)
+        nums.sort()
+        subsets = list()
+        for i in range(1<<n):
+            subset = list()
+            for j in range(n):
+                if i&(1<<j):
+                    subset.append(nums[j])
+            subsets.append(subset[:])
+        return subsets
