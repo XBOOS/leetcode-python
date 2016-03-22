@@ -45,3 +45,37 @@ class Solution(object):
             for j in range(1,n):
                 dp[i][j] = dp[i-1][j]+dp[i][j-1] if obstacleGrid[i][j]==0 else 0
         return dp[-1][-1]
+
+
+
+""" Method2 using O(n) space"""
+class Solution(object):
+    def uniquePathsWithObstacles(self, obstacleGrid):
+        """
+        :type obstacleGrid: List[List[int]]
+        :rtype: int
+        """
+        m = len(obstacleGrid)
+        n = len(obstacleGrid[0])
+
+        dp = [0]*n
+        helper = [0]*m
+        ii = jj = 0
+        while ii<n:
+            if obstacleGrid[0][ii]==0:
+                dp[ii]=1
+                ii+=1
+            else:
+                break
+        while jj<m:
+            if obstacleGrid[jj][0]==0:
+                helper[jj]=1
+                jj+=1
+            else:
+                break
+
+        for i in range(1,m):
+            dp[0] = helper[i]
+            for j in range(1,n):
+                dp[j] = dp[j-1]+dp[j] if obstacleGrid[i][j]==0 else 0
+        return dp[-1]
