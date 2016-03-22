@@ -27,7 +27,7 @@ class Solution(object):
         chart = [0]*(1+n)
         chart[0]=1
         for i in range(1,n+1):
-            for j in range(i):
+            for j in range(i): # j represents how many nodes are in the left subtree from 0 to i-1
                 chart[i] += chart[j]*chart[i-j-1]
         return chart[n]
 
