@@ -43,6 +43,26 @@ class Solution(object):
                 res.append(subset[:])
         return res
 
+
+""" Slightly modification to method 1"""
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        n = len(nums)
+        nums.sort()
+        res = [[]]
+        for i in range(n):
+            for j in range(len(res)):
+                tmp = res[j][:]
+                tmp.append(nums[i])
+                res.append(tmp)
+        return res
+
+
+
 """ Method2 iteration. using indx as the processing element. The order is opporsiteto method1"""
 class Solution(object):
     def subsets(self, nums):
@@ -63,7 +83,6 @@ class Solution(object):
                 res.append([nums[i]])
         res.append([])
         return res
-
 
 """ Method 3 using bit manipulation"""
 class Solution(object):
