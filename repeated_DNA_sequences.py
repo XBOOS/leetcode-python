@@ -32,6 +32,10 @@ class Solution(object):
             helper1.add(seq)
         return res
 
+""" Method2 this is with a tag of Bit Manipulation.
+instead of 0/1 there are ACGT four different types of bit. so it need 2 binry bit.
+and each shifting is <<2. Can use a hashmap( ACGT=> 0,1,2,3) and the binary representation
+as the key to do the hash. How fast it helps? """
 
 
 
