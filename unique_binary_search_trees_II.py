@@ -66,6 +66,43 @@ class Solution(object):
             return dp[l][r]
         return dfs(1,n)
 
+""" All move the root initialization below"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution(object):
+    def generateTrees(self, n):
+        """
+        :type n: int
+        :rtype: List[TreeNode]
+        """
+        if n==0:
+            return []
+        dp = [[None]*(n+1) for _ in range(n+1)]
+        for i in range(n+1):
+            dp[i][i] = [TreeNode(i)]
+
+        def dfs(l,r): #inclusive
+            if l>r:
+                return [None]
+            if dp[l][r]!=None:
+                return dp[l][r]
+            dp[l][r] = []
+            for mid in range(l,r+1):
+
+                lefts = dfs(l,mid-1)
+                rights = dfs(mid+1,r)
+                for i in range(len(lefts)):
+                    for j in range(len(rights)):
+                        root = TreeNode(mid)
+                        root.left = lefts[i]
+                        root.right = rights[j]
+                        dp[l][r].append(root)
+            return dp[l][r]
+        return dfs(1,n)
 
 
 
