@@ -24,6 +24,6 @@ class Solution(object):
         dp = [214748364]*(n+1)
         dp[1] = triangle[0][0]
         for row in range(1,n):
-            for col in (range(1,row+2)[::-1]):
+            for col in (range(row+1,0,-1)):
                 dp[col] = min(dp[col-1],dp[col])+triangle[row][col-1]
         return min(dp)
