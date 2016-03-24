@@ -27,6 +27,48 @@ Here's an example:
      5
 The above binary tree is serialized as "{1,2,3,#,#,4,#,#,5}"."""
 
+""" Method1, need to be careful when inserting pointer to object into list.
+remeber to make a copy. Otherwise I will change the pointeed object. then all object are the same in the same tree level"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+import copy
+class Solution(object):
+    def generateTrees(self, n):
+        """
+        :type n: int
+        :rtype: List[TreeNode]
+        """
+        if n==0:
+            return []
+        dp = [[None]*(n+1) for _ in range(n+1)]
+        for i in range(n+1):
+            dp[i][i] = [TreeNode(i)]
+
+        def dfs(l,r): #inclusive
+            if l>r:
+                return [None]
+            if dp[l][r]!=None:
+                return dp[l][r]
+            dp[l][r] = []
+            for mid in range(l,r+1):
+                root = TreeNode(mid)
+                lefts = dfs(l,mid-1)
+                rights = dfs(mid+1,r)
+                for i in range(len(lefts)):
+                    for j in range(len(rights)):
+                        root.left = lefts[i]
+                        root.right = rights[j]
+                        dp[l][r].append(copy.deepcopy(root))
+            return dp[l][r]
+        return dfs(1,n)
+
+
+
+
 """ Incorrect. need to be changed"""
 # Definition for a binary tree node.
 # class TreeNode(object):
