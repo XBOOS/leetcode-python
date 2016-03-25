@@ -29,8 +29,8 @@ class Solution(object):
             return []
 
         def combineFrom(combination,start,k):
-            if k<0 or n-start+1<k:
-                return False
+            #if k<0 or n-start+1<k:
+             #   return False
             if k==0:
                 combinations.append(combination[:])
                 return True
