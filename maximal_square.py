@@ -83,3 +83,32 @@ class Solution(object):
 
 
 
+""" Method 3 O(mnn), slower but provide a different sight view"""
+class Solution(object):
+    def maximalSquare(self, matrix):
+        """
+        :type matrix: List[List[str]]
+        :rtype: int
+        """
+        if matrix==[]:return 0
+        m = len(matrix)
+        n = len(matrix[0])
+        colSum = [1 if x=="1" else 0 for x in matrix[0]]
+        maxArea = max(colSum)
+        for i in range(1,m):
+            for j in range(n):
+                if matrix[i][j]=="1":
+                    colSum[j] +=1
+                else:
+                    colSum[j] = 0
+
+            for j in range(n):
+                minH = colSum[j]
+                for k in range(j,n):
+                    if colSum[k]==0:break
+                    minH = min(colSum[k],minH)
+                    maxArea = max(maxArea,min(minH,(k-j+1))**2)
+
+
+        return maxArea
+
