@@ -32,7 +32,8 @@ class Solution(object):
             count+=1
         return heapq.heappop(heap)
 
-""" Method2. the same method as an extention of ugly number II"""
+""" Method2. the same method as an extention of ugly number II
+However, it is obvious that there are redundant multiplications"""
 class Solution(object):
     def nthSuperUglyNumber(self, n, primes):
         """
@@ -52,4 +53,27 @@ class Solution(object):
                 if nextUgly==uglys[ptrs[i]]*primes[i]:
                     ptrs[i]+=1
             uglys.append(nextUgly)
+        return uglys[n-1]
+
+""" Method3 change the order of append and insertion , fuse the loops into one. but wildly slower"""
+class Solution(object):
+    def nthSuperUglyNumber(self, n, primes):
+        """
+        :type n: int
+        :type primes: List[int]
+        :rtype: int
+        """
+        k = len(primes)
+        ptrs = [0]*k
+        vals = [1]*k
+        uglys = []
+        nextUgly = 1
+        while len(uglys)<n:
+            uglys.append(nextUgly)
+            nextUgly = 2147483647
+            for i in range(len(primes)):
+                if primes[i]*uglys[ptrs[i]]==uglys[-1]:
+                    ptrs[i]+=1
+                nextUgly = min(nextUgly,primes[i]*uglys[ptrs[i]])
+
         return uglys[n-1]
