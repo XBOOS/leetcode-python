@@ -65,7 +65,6 @@ class Solution(object):
         """
         k = len(primes)
         ptrs = [0]*k
-        vals = [1]*k
         uglys = []
         nextUgly = 1
         while len(uglys)<n:
