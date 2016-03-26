@@ -31,3 +31,25 @@ class Solution(object):
                     heapq.heappush(heap,smallest*i)
             count+=1
         return heapq.heappop(heap)
+
+""" Method2. the same method as an extention of ugly number II"""
+class Solution(object):
+    def nthSuperUglyNumber(self, n, primes):
+        """
+        :type n: int
+        :type primes: List[int]
+        :rtype: int
+        """
+        k = len(primes)
+        ptrs = [0]*k
+        uglys = [1]
+        while len(uglys)<n:
+            nextUgly = 2147483647
+            for i in range(len(primes)):
+                nextUgly = min(nextUgly,primes[i]*uglys[ptrs[i]])
+
+            for i in range(len(primes)):
+                if nextUgly==uglys[ptrs[i]]*primes[i]:
+                    ptrs[i]+=1
+            uglys.append(nextUgly)
+        return uglys[n-1]
