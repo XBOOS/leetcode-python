@@ -12,7 +12,8 @@ The above elevation map is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In th
 
 """ Method1 Recursion by myself. So happy to get accepted the first submit!
 The two sides are important! The lower one dicide the throughout height.
-THe classic l<r condition in the while loop!"""
+THe classic l<r condition in the while loop!
+The time complexity is kind of high. it depens on the product of n and the values of product"""
 class Solution(object):
     def trap(self, height):
         """
@@ -63,6 +64,36 @@ class Solution(object):
 
         return acc
 
-
+""" Method3 scan from left to right. Then scan from right to left. Take care of the equal condition.
+Only one scan add the = part"""
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if not height or len(height)==0:
+            return 0
+        tallest = height[0]
+        total = 0
+        potential = 0
+        for i in range(1,len(height)):
+            if tallest>=height[i]:
+                potential+=tallest-height[i]
+            else:
+                total+=potential
+                potential = 0
+                tallest = height[i]
+        # what we lack here is the water on the rightside of the tallest bar, add these back and scan from right to left
+        potential = 0
+        tallest1 = height[-1]
+        for i in range(len(height)-2,-1,-1):
+            if tallest1>height[i]:
+                potential+=tallest1-height[i]
+            else:
+                total+=potential
+                potential = 0
+                tallest1 = height[i]
+        return total
 
 
