@@ -63,7 +63,6 @@ class Solution(object):
             bar = minHeight
 
         return acc
-
 """ Method3 scan from left to right. Then scan from right to left. Take care of the equal condition.
 Only one scan add the = part"""
 class Solution(object):
@@ -95,5 +94,89 @@ class Solution(object):
                 potential = 0
                 tallest1 = height[i]
         return total
+
+""" Modification on method3. When we approch the tallest bar, can break the second scan. But there's still unused computed
+results which is in the first scan after the tallest bar"""
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if not height or len(height)==0:
+            return 0
+        tallest = height[0]
+        total = 0
+        potential = 0
+        for i in range(1,len(height)):
+            if tallest>height[i]:
+                potential+=tallest-height[i]
+            else:
+                total+=potential
+                potential = 0
+                tallest = height[i]
+        potential = 0
+        tallest1 = height[-1]
+        for i in range(len(height)-2,-1,-1):
+            if tallest1>=height[i]:
+                potential+=tallest1-height[i]
+            else:
+                total+=potential
+                potential = 0
+                tallest1 = height[i]
+                if tallest == tallest1:
+                    break
+        return total
+
+""" Method 4. Smart one"""
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if not height or len(height)==0:
+            return 0
+        left = 0
+        right = len(height)-1
+        leftMax = height[0]
+        rightMax = height[-1]
+        water = 0
+        while left<right:
+            if leftMax<rightMax:
+                water += max(0,leftMax-height[left])
+                left+=1
+            else:
+                water += max(0,rightMax-height[right])
+                right -=1
+            leftMax = max(leftMax,height[left])
+            rightMax = max(rightMax,height[right])
+        return water
+""" A little Modification,but not obvious improvement"""
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if not height or len(height)==0:
+            return 0
+        left = 0
+        right = len(height)-1
+        leftMax = rightMax = water = 0
+        while left<right:
+            leftMax = max(leftMax,height[left])
+            rightMax = max(rightMax,height[right])
+            if leftMax<rightMax:
+                water +=leftMax-height[left]
+                left+=1
+            else:
+                water += rightMax-height[right]
+                right -=1
+
+        return water
+
+
+
 
 
