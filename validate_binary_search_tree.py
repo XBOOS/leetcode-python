@@ -67,3 +67,34 @@ class Solution(object):
         if not root:return True
         return isValidBSTHelper(root,-2147483649,2147483648)
 
+""" Method3  Using inorder traversal. and an extra record prev. the inorder traversal of a binary search tree will output the right order of tree"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if not root:
+            return True
+        prev = -2147483849
+        stack = list()
+        while root or stack:
+            if root:
+                tmp = root
+                stack.append(tmp)
+                root = root.left
+            else:
+                root = stack.pop()
+                if root.val<=prev:
+                    return False
+                prev = root.val
+                root = root.right
+        return True
+
