@@ -38,3 +38,32 @@ class Solution(object):
         if not root:return True
         return isValidBSTHelper(root,-2147483649,2147483648)
 
+""" Modification: there's no need to max and min. it is for sure shrinking the range"""
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        def isValidBSTHelper(root,minVal,maxVal):
+
+            if not root:
+                return True
+
+            res = (minVal<root.val<maxVal)
+            if root.left:
+                res &= isValidBSTHelper(root.left,minVal,root.val)
+            if root.right:
+                res &= isValidBSTHelper(root.right,root.val,maxVal)
+            return res
+
+        if not root:return True
+        return isValidBSTHelper(root,-2147483649,2147483648)
+
