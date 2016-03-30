@@ -35,6 +35,44 @@ class Solution(object):
         else:
             return [low,high]
 
+
+
+""" Method 2 solved the problem of the incorrect solution below"""
+class Solution(object):
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        def binarySearch(low,high): # if there's the target. Must be found!
+            while low<=high:
+                mid = (low+high)/2
+                if nums[mid]==target:
+                    return mid
+                elif nums[mid]<target:
+                    low = mid+1
+                else:
+                    high = mid-1
+            return -1
+
+        pos = binarySearch(0,len(nums)-1)
+        if pos==-1:
+            return [-1,-1]
+        #start to find the left bound
+        left = right = pos
+        tmp = pos
+        while tmp!=-1:
+            left = tmp
+            tmp = binarySearch(0,tmp-1)
+        tmp = pos
+        while tmp!=-1:
+            right = tmp
+            tmp = binarySearch(tmp+1,len(nums)-1)
+        return [left,right]
+
+
+
 """ Incorrect problematic solution. Cant tell if we already found the value.will
 append non-neccessary [-1,-1].Could pass a flag parameter through recursion.
 but this is not a good solution"""
