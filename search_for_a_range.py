@@ -1,6 +1,40 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+
+""" Use the classic range bound binary search( attention to the difference for pure
+binay search) to search for the lower bound and the higher bound"""
+class Solution(object):
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        def searchLowerBound(low,high):
+            while low<=high:
+                mid = (low+high)/2
+                if nums[mid]<target:
+                    low = mid+1
+                else:
+                    high = mid-1
+            return low
+
+        def searchHigherBound(low,high):
+            while low<=high:
+                mid = (low+high)/2
+                if nums[mid]>target:
+                    high = mid-1
+                else:
+                    low = mid+1
+            return high
+        low = searchLowerBound(0,len(nums)-1)
+        high = searchHigherBound(0,len(nums)-1)
+        if low>high:
+            return [-1,-1]
+        else:
+            return [low,high]
+
 """ Incorrect problematic solution. Cant tell if we already found the value.will
 append non-neccessary [-1,-1].Could pass a flag parameter through recursion.
 but this is not a good solution"""
