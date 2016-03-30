@@ -13,6 +13,8 @@ Here are few examples.
 [1,3,5,6], 0 → 0
 
 """
+
+"""Method 1 linear search"""
 class Solution(object):
     def searchInsert(self, nums, target):
         """
@@ -24,3 +26,25 @@ class Solution(object):
         while i<len(nums) and target>nums[i]:
             i+=1
         return i
+
+
+""" Method 2 binary search"""
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        low = 0
+        high = len(nums)-1
+        while low<=high:
+            mid = (low+high)/2
+
+            if nums[mid]==target:
+                return mid
+            elif nums[mid]<target:
+                low = mid+1
+            else:
+                high = mid-1
+        return low
