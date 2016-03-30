@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+
 """TLE"""
 # Definition for singly-linked list.
 # class ListNode(object):
@@ -25,7 +26,36 @@ class Solution(object):
             walk.next = head
             head = nextNode
         return dummy.next
+""" I dont know why there is TLE here. I used C++ it worked fine. Maybe due to something wrong of python semantics? or just python is slow"""
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        ListNode dummy(0);
+        ListNode *walk,*next;
 
+        while(head!=NULL){
+            walk = &dummy;
+            next = head->next;
+            while (walk->next!=NULL && walk->next->val<head->val)
+            {
+                walk = walk->next;
+            }
+            head->next = walk->next;
+            walk->next = head;
+            head = next;
+
+        }
+        return dummy.next;
+    }
+};
 
 
 # Definition for singly-linked list.
