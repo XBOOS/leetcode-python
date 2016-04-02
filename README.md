@@ -1,2 +1,2 @@
 # leetcode-python
-My python solution and thinking for leetcode algorithm questions
+My python and C++ solution and thinking for leetcode algorithm questions
