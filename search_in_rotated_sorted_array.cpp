@@ -61,3 +61,45 @@ public:
 
     }
 };
+
+/*Method 2
+ * combine the pivot and search processes, since they all need to get the
+ * middle value.
+ * the to compare the middle value with start/end,we got the sorted side
+ * and compare the target with the two extreme values,we got the next search subarray.
+ */
+class Solution {
+public:
+//trivial linear time search, think about binary search
+    int search(vector<int>& nums, int target) {
+        int low = 0,high = nums.size()-1;
+        int mid;
+        while(low<=high)
+        {
+            mid= (low+high)/2;
+            if(nums[mid]==target) return mid;
+            if(nums[mid]>nums[high])//the left side is sorted
+            {
+                if(target>=nums[low]&& target<nums[mid])
+                {
+                    high = mid-1;
+                }
+                else{
+                    low = mid+1;
+                }
+            }
+            else// if(nums[mid]<nums[high])//the right side is sorted
+            {
+                if(target>nums[mid]&&target<=nums[high])
+                {
+                    low = mid+1;
+                }
+                else
+                {
+                    high = mid-1;
+                }
+            }
+        }
+        return -1;
+    }
+};
