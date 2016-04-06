@@ -10,6 +10,8 @@
  */
 
 /* My original method. find the middle one and split,rotate the second list and do the merge
+ * The key is to do the in-place reorder, can use other data structures to help otherwise. Give it in the following methods
+ * after the fisrt one
  */
 /**
  * Definition for singly-linked list.
