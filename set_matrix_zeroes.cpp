@@ -97,7 +97,7 @@ public:
                 break;
             }
         }
-        for(int i=1;i<m;++i){
+        for(int i=1;i<m;++i){ //becareful to start with 1 instead of 0
             for(int j=1;j<n;++j){
                 if(!matrix[i][j]){
                     matrix[i][0]=0;
