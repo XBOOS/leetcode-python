@@ -46,3 +46,41 @@ public:
         return res;
     }
 };
+o/*Method 2 use marker to do in-place modification*/
+class Solution {
+public:
+    void gameOfLife(vector<vector<int>>& board) {
+        int m = board.size();
+        if(!m) return;
+        int n = board[0].size();
+        if(!n) return;
+        int num;
+        for(int i=0;i<m;++i){
+            for(int j=0;j<n;++j){
+                num = liveNeighbor(i,j,m,n,board);
+                if(board[i][j]>0&&(num<2||num>3)) board[i][j]=2;//should be 0
+                if(board[i][j]<=0&&num==3) board[i][j] = -1;//0 should be 1
+            }
+        }
+        for(int i=0;i<m;++i){
+            for(int j=0;j<n;++j){
+                if(board[i][j]==-1){ board[i][j]=1;//should be 0
+                }else if(board[i][j]==2){
+                    board[i][j]=0;
+                }
+            }
+        }
+
+    }
+    int liveNeighbor(int row,int col,int m,int n,vector<vector<int>>& copy){
+        vector<pair<int,int> > directions = {make_pair(1,-1),make_pair(1,0),make_pair(1,1),make_pair(0,1),make_pair(-1,1),
+                                            make_pair(-1,0),make_pair(-1,-1),make_pair(0,-1)};
+        int res = 0;
+        for(pair<int,int> dir:directions){
+            int x = row+dir.first;
+            int y = col+dir.second;
+            if(x>=0&&x<m&&y>=0&&y<n&&copy[x][y]>0) res++;
+        }
+        return res;
+    }
+};
