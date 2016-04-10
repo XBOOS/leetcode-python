@@ -34,7 +34,7 @@ public:
         }
 
     }
-    int liveNeighbor(int row,int col,int m,int n,vector<vector<int>> copy){
+    int liveNeighbor(int row,int col,int m,int n,vector<vector<int>>& copy){
         vector<pair<int,int> > directions = {make_pair(1,-1),make_pair(1,0),make_pair(1,1),make_pair(0,1),make_pair(-1,1),
                                             make_pair(-1,0),make_pair(-1,-1),make_pair(0,-1)};
         int res = 0;
