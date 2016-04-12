@@ -66,3 +66,56 @@ public:
         else return left?left:right;
     }
 };
+
+/*Method3 iterative way,postorder-traversal included*/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root||!p||!q) return root;
+        std::stack<TreeNode*> p_stack,q_stack;
+        getPath(p_stack,root,p);
+        getPath(q_stack,root,q);
+        //printf("%d%d",p_stack.top()->val,q_stack.top()->val);
+        //printf("%d%d",p_stack.size(),q_stack.size());
+        while(p_stack.size()>q_stack.size()) p_stack.pop();
+        while(p_stack.size()<q_stack.size()) q_stack.pop();
+        while(p_stack.top()!=q_stack.top()){
+            p_stack.pop();
+            q_stack.pop();
+        }
+        return p_stack.top();
+
+    }
+
+    void getPath(std::stack<TreeNode*>& path,TreeNode* root, TreeNode* target){
+        TreeNode* prev = nullptr;
+        //actually postorder traversal//since I cannot just pop it out need to go back to parent the second time
+        while(!path.empty() || root){
+            if(root==target){
+                path.push(root);
+                return;
+            }
+            if(root){
+                path.push(root);
+                root = root->left;
+            }else if((path.top()->right)==prev){
+                prev = path.top();
+                path.pop();
+            }else{
+                root = path.top();
+                prev = root;
+                root = root->right;
+                prev = nullptr;
+            }
+        }
+    }
+};
