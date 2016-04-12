@@ -24,6 +24,8 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
+// This method is pretty simple but pretty slow!!!!
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
@@ -41,5 +43,26 @@ public:
         if(!root||!target) return false;
         if(root==target) return true;
         return dfs(root->left,target)||dfs(root->right,target);
+    }
+};
+
+/* Method2*/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root||root==p||root==q) return root;
+        TreeNode* left = lowestCommonAncestor(root->left,p,q);
+        TreeNode* right = lowestCommonAncestor(root->right,p,q);
+        if(left&&right) return root;
+        else return left?left:right;
     }
 };
