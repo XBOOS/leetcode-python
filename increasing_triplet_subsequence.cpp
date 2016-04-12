@@ -14,7 +14,8 @@
  * return false.
  *
  */
-
+/* My intuition is using for the increasing subsequence general solution, but due to that there's just a subsequence of length 3,
+ * we can just use two extra variables to mark the smallest and the middle value*/
 class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
@@ -41,5 +42,19 @@ public:
             pos--;
         }
         return pos+1;
+    }
+};
+/*method2*/
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int min = INT_MAX;
+        int mid = INT_MAX;
+        for(int num:nums){
+            if(num<=min) min = num;
+            else if(num<=mid) mid = num;
+            else return true;
+        }
+        return false;
     }
 };
