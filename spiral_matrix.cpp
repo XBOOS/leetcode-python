@@ -125,7 +125,7 @@ public:
         for(int i=0;i<total;++i){
             res.push_back(matrix[x][y]);
                    // printf("%d",matrix[x][y]);
-            matrix[x][y]=2147483647;
+            matrix[x][y]=2147483647; //very strange that I set it to 0 it works without runtime error but with big integer it doesnt work!
             if(matrix[(x+dir_x)%m][(y+dir_y)%n]==2147483647){
                 int tmp = dir_x;
                 dir_x = dir_y;
