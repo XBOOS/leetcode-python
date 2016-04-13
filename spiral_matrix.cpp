@@ -68,3 +68,75 @@ public:
     }
 
 };
+
+
+/* method 2*/
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+
+        vector<int> res;
+        int m = matrix.size();
+        if(!m) return res;
+        int n = matrix[0].size();
+        if(!n) return res;
+        int left = 0,right = n-1,top = 0,bottom = m-1;
+        int dir = 0;
+        while(left<=right && top<=bottom){
+            if(dir==0){
+                for(int i=left;i<=right;++i){
+                    res.push_back(matrix[top][i]);
+                }
+                top++;
+            }else if(dir==1){
+                for(int j=top;j<=bottom;++j){
+                    res.push_back(matrix[j][right]);
+                }
+                right--;
+            }else if(dir==2){
+                for(int i=right;i>=left;--i){
+                    res.push_back(matrix[bottom][i]);
+                }
+                bottom--;
+            }else{
+                for(int j=bottom;j>=top;--j){
+                    res.push_back(matrix[j][left]);
+                }
+                left++;
+            }
+            dir = (dir+1)%4;
+        }
+        return res;
+    }
+
+};
+/*method 3*/
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+
+        vector<int> res;
+        int m = matrix.size();
+        if(!m) return res;
+        int n = matrix[0].size();
+        if(!n) return res;
+        int x = 0,y=0,dir_x = 0,dir_y=1;
+        int total = m*n;
+        for(int i=0;i<total;++i){
+            res.push_back(matrix[x][y]);
+                   // printf("%d",matrix[x][y]);
+            matrix[x][y]=2147483647;
+            if(matrix[(x+dir_x)%m][(y+dir_y)%n]==2147483647){
+                int tmp = dir_x;
+                dir_x = dir_y;
+                dir_y = -tmp;
+
+            }
+            x +=dir_x;
+            y +=dir_y;
+        }
+
+        return res;
+    }
+
+};
