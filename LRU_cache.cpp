@@ -6,7 +6,9 @@
  *
  *
  */
-
+/* LinkedHapshMap
+ * This is almost a pointer practice for me.
+ * Forget about some details and got so many compiling errors*/
 class LRUCache{
 
 public:
