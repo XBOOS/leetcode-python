@@ -58,3 +58,35 @@ public:
         straight = straight>0?straight:0;
     }
 };
+
+/*Method 2 make the side effect computation as a global update.
+ * maintain the main computation and update. almost the same as method one.
+ * Becareful of the max(0,left,right)
+ */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+#include <climits>
+class Solution {
+    int sumMax = INT_MIN;
+public:
+    int maxPathSum(TreeNode* root) {
+        maxStraightPath(root);
+        return sumMax;
+    }
+    int maxStraightPath(TreeNode* root){ //side effect to update the member field sumMax by each maxPath ended at root
+        if(!root) return 0;
+        int left = max(0,maxStraightPath(root->left));
+        int right = max(0,maxStraightPath(root->right));
+        sumMax = max(sumMax,left+root->val+right);
+        return max(left,right)+root->val;
+
+    }
+
+};
