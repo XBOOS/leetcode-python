@@ -25,6 +25,8 @@
 /* The main point is to avoid recomputation.
  * The fist time I seperate the straight path from top to bottom (like backtracking) and the maxPathSum computation apart. Which actually casued my recomputing
  * the straight path so I got TLE
+ *
+ * Divide and conquer-- the combing part is essential!---> the combination process should use the already-computated result of the divided sub-problem part
  */
 #include <climits>
 class Solution {
