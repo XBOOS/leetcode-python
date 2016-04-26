@@ -59,3 +59,64 @@ public:
             return res;
     }
 };
+
+//method2 Bottom-up dynamic programming
+class Solution {
+private:
+    void parse(string input,vector<int>& numbers, vector<char>& operators){
+        int num = 0;
+        for(auto i=0;i<input.size();++i){
+            if(input[i]=='+'||input[i]=='-'||input[i]=='*'){
+                operators.push_back(input[i]);
+                numbers.push_back(num);
+                num = 0;
+            }else{
+                num = num*10 + (input[i]-'0');
+            }
+        }
+        numbers.push_back(num);
+    }
+
+    int calculate(int a,int b, char ope){
+        switch(ope){
+            case '+':
+                return a+b;
+            case '-':
+                return a-b;
+            default://case '*':
+                return a*b;
+            // default:
+            //     printf("Invalid operator for this problem!");
+            //     break;
+        }
+    }
+public:
+    vector<int> diffWaysToCompute(string input) {
+        vector<int> numbers;
+        vector<char> operators;
+        parse(input,numbers,operators);
+        int len = numbers.size();
+        vector<vector<vector<int>> > dp(len,vector<vector<int>>(len));
+        for(int step=0;step<len;++step){
+            for(int start=0;start<len-step;++start){
+                int end = start+step;
+                if(start==end){
+                    dp[start][end].push_back(numbers[start]);
+                }else{
+                    vector<int> list1,list2;
+                    for(int k=start;k<end;++k){
+                        list1 = dp[start][k];
+                        list2 = dp[k+1][end];
+                        for(int left:list1){
+                            for(int right:list2){
+                                dp[start][end].push_back(calculate(left,right,operators[k]));
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+        return dp[0][len-1];
+    }
+};
