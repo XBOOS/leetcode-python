@@ -71,3 +71,9 @@ public:
     }
 
 };
+
+
+/*
+ * Some methods for optimization
+ * 1. Preprocessing. HashMap to check the total number of the characters.
+ * 2. Simplify the withinBound check. due to each new grip is just one step from the original grid. So that only one direction bound is needed to be checked!
