@@ -25,6 +25,7 @@
 //solution1: very clever and simple way.
 //use map to hash the input->result value list to avoid recomputation
 //the divide and conquer bottom case is the whole input is an integer
+// Also remember the map methods and atoi(string.c_str())
 class Solution {
 private:
     map<string,vector<int> >inputToValues;
