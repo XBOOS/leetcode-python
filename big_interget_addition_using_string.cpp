@@ -15,3 +15,13 @@
         if(carry>0) res = '1'+res;
         return res;
     }
+
+//This is used to avoid big integer overflow. The second way is to using long and stringstream
+string add(string num1,string num2){
+    stringtream ss;
+    long tmp = atol(num1.c_str())+atol(num2.c_str());
+    ss.str("");
+    ss<<tmp;
+    string res = ss.str();
+    return res;
+}
