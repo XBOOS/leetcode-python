@@ -12,8 +12,8 @@ public:
     string multiply(string num1, string num2) {
         int m = num1.size();
         int n = num2.size();
-        if(m==0) return num2;
-        if(n==0) return num1;
+ //       if(m==0) return num2;
+  //      if(n==0) return num1;
         if(num1=="0"||num2=="0")return "0";
         int sz = m+n;
         string res(sz,'0');//initialization with the largest length
