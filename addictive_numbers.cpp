@@ -52,3 +52,35 @@ public:
     }
 };
 
+//Method 2 this is the iterative way . The idea is the same as the recursive way.
+class Solution {
+public:
+    bool isAdditiveNumber(string num) {
+        int n = num.size();
+        string num1,num2,num3,other;
+        stringstream ss;
+        for(int i=1;i<=n/2;++i){
+            for(int j=1;j<=(n-i)/2;++j){
+                num1 = num.substr(0,i);
+                num2 = num.substr(i,j);
+                other = num.substr(i+j);
+                if((num1.size()>1&&num1[0]=='0')||(num2.size()>1&& num2[0]=='0')) continue;
+                while(true){
+                    long tmp = atol(num1.c_str())+atol(num2.c_str());
+                    //printf("%d----%d %d %d ...",count,atol(num1.c_str()),atol(num2.c_str()),tmp);
+                    ss.str("");
+                    ss<<tmp;
+                    num3 = ss.str();
+                    if(num3==other) return true;
+                    else if(num3 == other.substr(0,num3.size())){
+                        num1 = num2;
+                        num2 = num3;
+                        other = other.substr(num3.size());
+                        continue;
+                    }else break;
+                }
+            }
+        }
+          return false;
+    }
+};
