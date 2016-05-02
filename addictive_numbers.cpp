@@ -84,3 +84,76 @@ public:
           return false;
     }
 };
+
+//What if i dont use stringstream to do the addition??
+//the above method is " long tmp = atol(num1.c_str())+atol(num2.c_str()); stringstream ss;ss<<tmp;string num3 = ss.str(); "
+//if reusing the same stringstream, flush it by setting ss.str(""). remember that the clear() is used to clear the error state
+//flushing has no meaning for stringstream, as there is no external device that it sends data to.
+//Based on your use case, you want to empty the stringstream, that's done by calling str(""))
+/*
+ * #include <iostream>
+ * #include <sstream>
+ * using namespace std;
+ * int main()
+ * {
+ *     stringstream x;
+ *         x << "abc";
+ *             x.str("");
+ *                 x << "def";
+ *
+ *                   cout << x.str() << '\n';   // it's either .str()
+ *                       cout << x.rdbuf()  << '\n'; // or rdbuf()
+ *        }
+ *))
+ */
+class Solution {
+public:
+    string add(string a,string b){
+        int m = a.size();
+        int n = b.size();
+        int sz = m>n?m:n;
+        a = string(sz-m,'0')+a;
+        b = string(sz-n,'0')+b;
+        int carry=0,tmp; //here carry! must be initialized!!!!!!!
+        string res = b;
+        for(int i=sz-1;i>=0;--i){
+            tmp = a[i]-'0'+(b[i]-'0')+carry;
+            carry = (tmp>9);
+            //printf("%d",carry);
+            res[i] = tmp-carry*10+'0';
+        }
+        if(carry>0) res = '1'+res;
+        return res;
+    }
+
+    bool isAdditiveNumber(string num) {
+        int n = num.size();
+        string num1,num2,num3,other;
+        //stringstream ss;
+        for(int i=1;i<=n/2;++i){
+            for(int j=1;j<=(n-i)/2;++j){
+                num1 = num.substr(0,i);
+                num2 = num.substr(i,j);
+                other = num.substr(i+j);
+                if((num1.size()>1&&num1[0]=='0')||(num2.size()>1&& num2[0]=='0')) continue;
+                while(true){
+                    //long tmp = atol(num1.c_str())+atol(num2.c_str());
+
+                    //ss.str("");
+                    //ss<<tmp;
+                    //num3 = ss.str();
+                    num3 = add(num1,num2);
+                    //printf("%d %d %d...",atol(num1.c_str()),atol(num2.c_str()),atol(num3.c_str()));
+                    if(num3==other) return true;
+                    else if(num3 == other.substr(0,num3.size())){
+                        num1 = num2;
+                        num2 = num3;
+                        other = other.substr(num3.size());
+                        continue;
+                    }else break;
+                }
+            }
+        }
+          return false;
+    }
+};
