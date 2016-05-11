@@ -14,7 +14,7 @@ public:
         int n = num2.size();
  //       if(m==0) return num2;
   //      if(n==0) return num1;
-        if(num1=="0"||num2=="0")return "0";
+        if(num1=="0"||num2=="0") return "0"; // I omitted this first
         int sz = m+n;
         string res(sz,'0');//initialization with the largest length
         int carry1 =0,tmp1,idx;
@@ -33,7 +33,6 @@ public:
         }
         if(res.size()>1&&res[0]=='0') return res.substr(1);
         else return res;
-        //return res;
     }
 
 };
