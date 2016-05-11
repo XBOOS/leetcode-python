@@ -36,3 +36,33 @@ public:
      }
 
 };
+//using different method
+class Solution {
+public:
+    void swap(vector<int>& nums,int idx1,int idx2){
+        int tmp = nums[idx1];
+        nums[idx1] = nums[idx2];
+        nums[idx2] = tmp;
+    }
+    void wiggleSort(vector<int>& nums) {
+        int n = nums.size();
+        if(n<2) return;
+        vector<int> copy(nums);
+        std::sort(copy.begin(),copy.end());
+        // int idx = 1;
+        // for(int i=n-1;i>=0;i--){
+        //     nums[idx] = copy[i];
+        //     idx+=2;
+        //     if(idx>=n&&i) idx=0;
+        // }
+        for(int i=1;i<n;i+=2){
+            nums[i]=copy.back();
+            copy.pop_back();
+        }
+        for(int i=0;i<n;i+=2){
+            nums[i] = copy.back();
+            copy.pop_back();
+        }
+     }
+
+};
