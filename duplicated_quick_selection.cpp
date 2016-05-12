@@ -31,5 +31,9 @@ int quick_select_with_duplicate(vector<int>& nums, int low, int high){
             j++;
         }
     }
+    swap(nums,j,high);
 
+    return k;//the first element index == pivot
+    // [low,k) < pivot
+    // [k,j) ==pivot
 }
