@@ -15,3 +15,21 @@ void duplicated_quick_select(vector<int>& nums,int low,int high,int len,vector<i
 //        if(j-k>len) ans.push_back(nums[k]);
 //        if(k-low>len) duplicated_quick_select(nums,low,k-1,len,ans);
 //        if(high-j+1>len) duplicated_quick_select(nums,j,high,len,ans);
+
+
+int quick_select_with_duplicate(vector<int>& nums, int low, int high){
+    if(low>high) return -1;
+    int pivot = nums[high];
+    int k=low,j=low;
+    for(int i=low;i<=high;++i){
+        if(nums[i]<pivot){
+            swap(nums,i,k);
+            swap(nums,i,j);
+            k++;j++;
+        }else if(nums[i]==pivot){
+            swap(nums,i,j);
+            j++;
+        }
+    }
+
+}
