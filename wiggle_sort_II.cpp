@@ -123,56 +123,136 @@ public:
 //
 class Solution {
 public:
-    void swap(vector<int>& nums,int idx1,int idx2){
-        int tmp = nums[idx1];
-        nums[idx1] = nums[idx2];
-        nums[idx2] = tmp;
-    }
-    int partition(vector<int>&nums,int low, int high){ //without duplicates. should be randomized partition
-        if(low>high) return -1;
+
+    int Lomuto_partition(vector<int>&nums,int low, int high){ //without duplicates. should be randomized partition
+        if(low>=high) return low;
         int pivot = nums[high];
         int left = low;
-        for(int i =low;i<=high;++i){
-            if(nums[i]<pivot) swap(nums,i,left);
+        for(int i=low;i<high;++i){
+            if(nums[i]<=pivot) swap(nums[i],nums[left++]);
         }
-        swap(nums,i,high);
-        return i;
+        swap(nums[left],nums[high]);
+        return left;
     }
-    int partition_with_duplicates(vector<int>&nums,int low, int high){ //without duplicates. should be randomized partition
-        if(low>high) return -1;
+
+    int Hoare_partition(vector<int>&nums,int low, int high){ //without duplicates. should be randomized partition
+        if(low>=high) return low;
+        int pivot = nums[low];
+        int i = low-1,j = high+1;
+        while(true){
+            do{++i;}while(nums[i]<pivot);
+            do{--j;}while(nums[j]>pivot);
+            if(i>=j) return j;
+            swap(nums[i],nums[j]);
+        }
+    }
+
+    int three_way_partition(vector<int>& nums, int low, int high){
+        if(low>=high) return low;
         int pivot = nums[high];
-        int k = low,j=low;
-        for(int i =low;i<=high;++i){
+        int k=low,j=low;
+        for(int i=low;i<high;++i){
             if(nums[i]<pivot){
-                swap(nums,i,k);
-                swap(nums,i,j);
+                swap(nums[i],nums[k]);
+                swap(nums[i],nums[j]);
                 ++k;++j;
             }else if(nums[i]==pivot){
-                swap(nums,i,j);
-                ++;
+                swap(nums[i],nums[j]);
+                ++j;
             }
         }
-        swap(nums,j,high);
-        return k;//the first index has value==pivot
+        swap(nums[high],nums[j]);
+        return k;
     }
+
+    int three_way_partition_Hoare(vector<int>& nums, int low, int high){
+        if(low>=high) return low;
+        int pivot = nums[high];
+        int k=low,j=high,i=low;
+        while(i<high){
+            if(nums[i]<pivot){
+                swap(nums[i],nums[k]);
+                ++i;++k;
+            }else if(nums[i]>pivot){
+                swap(nums[i],nums[j]);
+                --j;
+            }else{
+                ++i;
+            }
+        }
+        return k;
+    }
+   int findKthElement(vector<int>& nums, int l,int r,int k){
+
+      while(true){
+            //if(l>r) return 214748364;
+            //if(l==r) return nums[l];
+            // int pivot = nums[r];
+            // int left = l;
+            // for(int i=l;i<r;++i){
+            //      if(nums[i]<=pivot){
+            //          swap(nums[i],nums[left++]);
+            //      }
+
+            // }
+            // swap(nums[r],nums[left]);
+            int left = Lomuto_partition(nums,l,r); // speed 0.31% so slow
+            //int left = Hoare_partition(nums,l,r);// seems doesnt apply to arrays with duplicates
+            if (left==k)
+                return nums[left];
+            else if(left>k)
+                r = left-1;
+            else
+                l = left+1;
+
+        }
+   }
+
     int quick_selection(vector<int>& nums, int low,int high, int k){
-        if(low>high) return -1;
-        int q = partition(nums,low,high);
+        if(low>=high) return nums[low];
+        //int q = partition(nums,low,high);
+        int q = three_way_partition(nums,low,high);
         if(q==k) return nums[q];
-        else if(q<k) return quick_selection(nums,low,q-1,k);
-        else return quick_selection(nums,q+1,high,k-q);
+        else if(k<q) return quick_selection(nums,low,q-1,k);
+        else return quick_selection(nums,q+1,high,k-q-1);
     }
-    //index mapping n=> (2n+1)%(n|1)
 
     void wiggleSort(vector<int>& nums) {
         int n = nums.size();
         if(n<2) return;
-        //find median
-        int median = quick_selection(nums,0,n-1,n/2);
-        for(int i=0;i<n;++i){
-            if(nums[i]>=pivot) swap(i,(2*i+1)%(n|1));
 
+        //find median
+        int median = findKthElement(nums,0,n-1, n/2);
+        printf("median = %d ",median);
+
+        // Index-rewiring.    //index mapping n=> (2n+1)%(n|1)
+        #define A(i) nums[(1+2*(i)) % (n|1)]
+
+        // 3-way-partition-to-wiggly in O(n) time with O(1) space.
+    int i = 0, j = 0, k = n - 1;
+    while (j <= k) {
+        if (A(j) > median)
+            swap(A(i++), A(j++));
+        else if (A(j) < median)
+            swap(A(j), A(k--));
+        else
+            j++;
+    }
+
+    /*
+        int k=0,j=0;
+        for(int i=0;i<n;++i){
+            if(A(i) > median){
+                swap(A(i),A(k));
+                ++k;++j;
+                swap(A(i),A(j));
+                //++k;++j;
+            }else if(A(i)==median){
+                swap(A(i),A(j));
+                ++j;
+            }
         }
+    */
 
      }
 
