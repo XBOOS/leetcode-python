@@ -5,7 +5,7 @@
 
 void threeWayPartation(vector<int>& nums, int low, int high,int pivot){
     int i=low;//bound of the smaller part
-    int j=0;// current element in attention
+    int j=low;// current element in attention
     int k = high; //bound of the bigger part
     while(j<=k){
         if(nums[j]<pivot){
