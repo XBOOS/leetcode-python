@@ -29,7 +29,7 @@ public:
         return isPossible[0];
     }
     // bool canJump(vector<int>& nums) {
-    //     //backtracking
+    //     //backtracking . too slow, since the best algorithm here is greedy algorithm
     //     int n = nums.size();
     //     vector<bool> isPossible(n,false);
     //     vector<bool> visited(n,false);
