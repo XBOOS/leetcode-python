@@ -17,3 +17,19 @@ public:
         return res;
     }
 };
+
+//method 2
+class Solution {
+public:
+    string reverseString(string s) {
+        int n = s.size();
+        int i=0,j=n-1;
+        while(i<j){
+            char tmp = s[i];
+            s[i] = s[j];
+            s[j] = tmp;
+            ++i;--j;
+        }
+        return s;
+    }
+};
