@@ -27,6 +27,7 @@ public:
 
 
 //method 2
+//  this is actually even slower. But this is not all tail recursion, so that I cannot change them all to be iterative.
 class Solution {
 public:
     int findMin(vector<int>& nums) {
