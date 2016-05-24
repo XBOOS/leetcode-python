@@ -12,7 +12,7 @@
  *
  */
 
-
+// Keep a sliding window. To grow and shrink.
 class Solution {
 public:
     int minSubArrayLen(int s, vector<int>& nums) {
@@ -29,5 +29,26 @@ public:
             j++;
         }
         return res==INT_MAX?0:res;
+    }
+};
+
+//here actually pay attention that the i is the start and j is the end. so it is consistent.
+//but if [j++] j is the one after the end. then in "if" and "else", they may become inconsistent.
+//therefore, it should be [++j], or like the solution above.
+class Solution {
+public:
+    int minSubArrayLen(int s, vector<int>& nums) {
+
+        int n = nums.size();
+        if(n<1) return 0;
+        int i=0,j=-1,minLen=INT_MAX,curSum=0;
+        while(j<n){
+            if(curSum<s) curSum+=nums[++j];
+            else{
+                minLen = min(minLen,(j-i+1));
+                curSum-=nums[i++];
+            }
+        }
+        return minLen==INT_MAX?0:minLen;
     }
 };
